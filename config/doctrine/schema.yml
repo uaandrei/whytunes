@@ -1,0 +1,247 @@
+Admins:
+  connection: doctrine
+  tableName: admins
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    admin_name:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    admin_password:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+AlbumSongs:
+  connection: doctrine
+  tableName: album_songs
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    album_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    song_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Albums:
+      local: album_id
+      foreign: id
+      type: one
+    Songs:
+      local: song_id
+      foreign: id
+      type: one
+Albums:
+  connection: doctrine
+  tableName: albums
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    album_name:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    album_release_date:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    AlbumSongs:
+      local: id
+      foreign: album_id
+      type: many
+Artists:
+  connection: doctrine
+  tableName: artists
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    artist_name:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Songs:
+      local: id
+      foreign: song_artist_id
+      type: many
+Genres:
+  connection: doctrine
+  tableName: genres
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    genre_name:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Songs:
+      local: id
+      foreign: song_genre_id
+      type: many
+Songs:
+  connection: doctrine
+  tableName: songs
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    song_title:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    song_genre_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    song_artist_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    song_release_date:
+      type: date(25)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Artists:
+      local: song_artist_id
+      foreign: id
+      type: one
+    Genres:
+      local: song_genre_id
+      foreign: id
+      type: one
+    AlbumSongs:
+      local: id
+      foreign: song_id
+      type: many
+    UserSongs:
+      local: id
+      foreign: song_id
+      type: many
+UserSongs:
+  connection: doctrine
+  tableName: user_songs
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    user_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    song_id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    Songs:
+      local: song_id
+      foreign: id
+      type: one
+    Users:
+      local: user_id
+      foreign: id
+      type: one
+Users:
+  connection: doctrine
+  tableName: users
+  columns:
+    id:
+      type: integer(4)
+      fixed: false
+      unsigned: false
+      primary: true
+      autoincrement: true
+    user_name:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+    user_password:
+      type: string(45)
+      fixed: false
+      unsigned: false
+      primary: false
+      notnull: true
+      autoincrement: false
+  relations:
+    UserSongs:
+      local: id
+      foreign: user_id
+      type: many
